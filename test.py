@@ -14,25 +14,25 @@ class Solution:
         sum = 0
         prev = 0
         prev_count = 0
-        try:
-            for digit in s[::-1]:
-                current = Solution.dict[digit]
-                if prev > current:
-                    if (current in (100, 10, 1)) & prev_count != 1:
-                        sum -= Solution.dict[digit]
-                        prev_count += 1
-                    else:
-                        raise ValueError("BadSubtractionDigit")
+        for digit in s[::-1]:
+            current = Solution.dict[digit]
+            if prev > current:
+                if (current in (100, 10, 1)) and prev_count != 1:
+                    sum -= Solution.dict[digit]
+                    prev_count += 1
                 else:
-                    prev_count = 0
-                    prev = Solution.dict[digit]
-                    sum += Solution.dict[digit]
-            print(sum)
-        except ValueError:
-            print("Wrong number, Try again")
-            pass
+                    raise ValueError("BadSubtractionDigit")
+            else:
+                prev_count = 0
+                prev = Solution.dict[digit]
+                sum += Solution.dict[digit]
+        return sum
 
 
 if __name__ == '__main__':
-    while (True):
-        Solution.romanToInt(input())
+    while True:
+        try:
+            print(Solution.romanToInt(input()))
+        except ValueError:
+            print("Wrong number, Try again")
+            pass
